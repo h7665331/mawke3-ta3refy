@@ -1,361 +1,221 @@
-Enter<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Fadi Store</title>
-    <!-- استدعاء خطوط جوجل (Cairo) للحصول على نفس شكل خط سوبر تون -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- استدعاء أيقونات FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #0b59d6; /* لون سوبر تون الأزرق */
+            --bg-color: #0b59d6; 
             --glass-bg: rgba(255, 255, 255, 0.15);
             --glass-border: rgba(255, 255, 255, 0.25);
             --text-color: #ffffff;
         }
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             font-family: 'Cairo', sans-serif;
             background: linear-gradient(135deg, #074bb8 0%, #1574fa 100%);
             color: var(--text-color);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            position: relative;
+            display: flex; flex-direction: column;
+            overflow-x: hidden; position: relative;
         }
 
-        /* الكلمة الضخمة في الخلفية (نفس ستايل الموقع المرفق) */
         .bg-text {
-            position: fixed;
-            top: 50%;
-            left: 50%;
+            position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 150px;
-            font-weight: 900;
+            font-size: 150px; font-weight: 900;
             color: rgba(255, 255, 255, 0.05);
-            z-index: 0;
-            pointer-events: none;
-            white-space: nowrap;
-            letter-spacing: 5px;
+            z-index: 0; pointer-events: none;
+            white-space: nowrap; letter-spacing: 5px;
         }
 
-        /* حاوية المحتوى الأساسي */
         .content-wrapper {
-            position: relative;
-            z-index: 1;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            padding: 20px;
+            position: relative; z-index: 1; flex: 1;
+            display: flex; flex-direction: column;
+            align-items: center; width: 100%; padding: 20px;
         }
 
-        /* البار العلوي (عداد الزيارات والقائمة) */
         .top-bar {
-            width: 100%;
-            max-width: 500px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            width: 100%; max-width: 500px;
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 20px;
         }
 
         .glass-element {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 12px;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px; color: white;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .views-badge {
-            padding: 8px 15px;
-            font-size: 0.9rem;
-            border-radius: 20px;
-            gap: 8px;
-        }
+        .views-badge { padding: 8px 15px; font-size: 0.9rem; border-radius: 20px; gap: 8px; }
+        .menu-btn { width: 45px; height: 45px; font-size: 1.2rem; cursor: pointer; }
 
-        .menu-btn {
-            width: 45px;
-            height: 45px;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
+        .profile-section { text-align: center; margin-bottom: 30px; width: 100%; }
 
-        /* قسم البروفايل (اللوجو والاسم) */
-        .profile-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
+        /* تم ضبط الصورة لتتكيف مع الهاتف ولا تتشوه */
         .profile-section img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: var(--glass-bg);
-            padding: 5px;
-            object-fit: cover;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 120px; height: 120px; max-width: 100%;
+            border-radius: 50%; background: rgba(255, 255, 255, 0.2); 
+            padding: 4px; object-fit: cover; margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.5);
         }
 
-        .profile-section h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
+        .profile-section h1 { margin: 0; font-size: 1.8rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .profile-section p { margin: 5px 0 0 0; font-size: 0.95rem; opacity: 0.9; }
+        .trust-icon { margin-top: 10px; font-size: 1.2rem; }
 
-        .profile-section p {
-            margin: 5px 0 0 0;
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-
-        .trust-icon {
-            margin-top: 10px;
-            font-size: 1.2rem;
-        }
-
-        /* حاوية الأزرار (الأقسام أو الخدمات) */
         .buttons-container {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            width: 100%; max-width: 400px;
+            display: flex; flex-direction: column; gap: 15px;
             animation: fadeIn 0.3s ease-in-out;
         }
 
-        /* تصميم الأزرار المطابق لسوبر تون */
         .main-btn {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 16px 20px;
-            border-radius: 15px;
-            color: white;
-            text-decoration: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: inherit;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            width: 100%;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            padding: 16px 20px; border-radius: 15px; color: white;
+            text-decoration: none; display: flex; justify-content: space-between;
+            align-items: center; font-size: 1.1rem; font-weight: 700;
+            font-family: inherit; cursor: pointer; transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%;
         }
 
-        .main-btn:active {
-            transform: scale(0.97);
-            background: rgba(255, 255, 255, 0.25);
-        }
+        .main-btn:active { transform: scale(0.97); background: rgba(255, 255, 255, 0.25); }
+        .main-btn i { font-size: 1.2rem; opacity: 0.9; }
+        .back-btn { justify-content: center; gap: 10px; background: rgba(0, 0, 0, 0.15); }
+        .footer { text-align: center; padding: 20px; font-size: 0.8rem; opacity: 0.7; z-index: 1; }
 
-        .main-btn i {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        /* زر الرجوع */
-        .back-btn {
-            justify-content: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* الفوتر */
-        .footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 0.8rem;
-            opacity: 0.7;
-            z-index: 1;
-        }
-
-        /* أنيميشن التنقل */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* لودنج */
-        #loading-text {
-            margin-top: 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #loading-text { margin-top: 50px; font-size: 1.2rem; font-weight: bold; text-align:center; }
         .hidden { display: none !important; }
+        .empty-msg { text-align: center; font-size: 1.1rem; opacity: 0.8; padding: 20px; }
+
+        @media (max-width: 400px) {
+            .bg-text { font-size: 100px; }
+            .profile-section h1 { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- الكلمة الضخمة في الخلفية -->
     <div class="bg-text">FADI STORE</div>
 
     <div class="content-wrapper">
-        <!-- البار العلوي -->
         <div class="top-bar">
-            <div class="glass-element views-badge">
-                <i class="fa-regular fa-eye"></i> <span id="views-count">489,659 زيارة</span>
-            </div>
-            <div class="glass-element menu-btn">
-                <i class="fa-solid fa-bars"></i>
-            </div>
+            <div class="glass-element views-badge"><i class="fa-regular fa-eye"></i> <span>489,659 زيارة</span></div>
+            <div class="glass-element menu-btn"><i class="fa-solid fa-bars"></i></div>
         </div>
 
-        <!-- معلومات الموقع -->
         <div class="profile-section">
-            <img src="https://via.placeholder.com/100/0b59d6/FFFFFF?text=F" id="site-logo" alt="Logo">
+            <img src="" id="site-logo" alt="Logo" style="display: none;">
             <h1 id="site-title">جاري التحميل...</h1>
-            <p id="site-desc">جاري التحميل...</p>
+            <p id="site-desc">يرجى الانتظار...</p>
             <div class="trust-icon">🛡️</div>
         </div>
 
-        <div id="loading-text">جاري جلب الأقسام...</div>
+        <div id="loading-text"><i class="fa-solid fa-spinner fa-spin"></i> جاري جلب البيانات...</div>
 
-        <!-- الشاشة الأولى: الأقسام -->
-        <div id="categories-view" class="buttons-container hidden">
-            <!-- سيتم توليد الأقسام هنا برمجياً -->
-        </div>
+        <div id="categories-view" class="buttons-container hidden"></div>
 
-        <!-- الشاشة الثانية: الخدمات -->
         <div id="services-view" class="buttons-container hidden">
-            <h3 id="category-title" style="text-align: center; margin: 0 0 10px 0;">اسم القسم</h3>
-            <div id="services-list" style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
-                <!-- سيتم توليد الخدمات هنا -->
-            </div>
-            <!-- زر الرجوع (نفس شكل سوبر تون) -->
-            <button class="main-btn back-btn" onclick="showCategories()">
-                رجوع <i class="fa-solid fa-arrow-left"></i>
-            </button>
+            <h3 id="category-title" style="text-align: center; margin: 0 0 10px 0;"></h3>
+            <div id="services-list" style="display: flex; flex-direction: column; gap: 15px; width: 100%;"></div>
+            <button class="main-btn back-btn" onclick="showCategories()">رجوع <i class="fa-solid fa-arrow-left"></i></button>
         </div>
     </div>
 
-    <!-- الفوتر -->
-    <div class="footer">
-        © Fadi Store 2026 - جميع الحقوق محفوظة
-    </div>
+    <div class="footer">© Fadi Store 2026 - جميع الحقوق محفوظة</div>
 
     <script>
-        // --- ضع هنا رابط ملف data.json الخام (Raw) الخاص بك من جيتهاب ---
         const RAW_URL = 'https://raw.githubusercontent.com/h7665331/mawke3-ta3refy/refs/heads/main/data.json';
         
-        let globalData = null; // متغير لحفظ البيانات
-
-        // أيقونات عشوائية للأقسام عشان الشكل يطلع حلو زي سوبر تون
-        const icons = ['fa-shield-halved', 'fa-comment-dots', 'fa-users', 'fa-star', 'fa-gavel', 'fa-gift'];
+        let globalData = null;
+        const icons = ['fa-shield-halved', 'fa-comment-dots', 'fa-users', 'fa-star', 'fa-gavel', 'fa-gift', 'fa-bolt', 'fa-fire'];
 
         async function initStore() {
             try {
-                // جلب البيانات (مع timestamp لمنع الكاش)
                 const response = await fetch(`${RAW_URL}?t=${new Date().getTime()}`);
                 globalData = await response.json();
 
-                // تحديث بيانات الموقع
-                document.title = globalData.site_settings.title;
-                document.getElementById('site-title').innerText = globalData.site_settings.title;
+                document.title = globalData.site_settings.title || "Fadi Store";
+                document.getElementById('site-title').innerText = globalData.site_settings.title || "Fadi Store";
+                document.getElementById('site-desc').innerText = globalData.site_settings.description || "";
                 
-                // تحديث الوصف من قاعدة البيانات
-                if(globalData.site_settings.description) {
-                    document.getElementById('site-desc').innerText = globalData.site_settings.description;
-                } else {
-                    document.getElementById('site-desc').innerText = "متجرك المفضل للخدمات"; // وصف افتراضي لو مش موجود
+                const logoImg = document.getElementById('site-logo');
+                if(globalData.site_settings.logo_url && globalData.site_settings.logo_url.trim() !== "") {
+                    logoImg.src = globalData.site_settings.logo_url;
+                    logoImg.style.display = 'inline-block';
                 }
-                
-                // إخفاء التحميل وإظهار الأقسام
+
                 document.getElementById('loading-text').classList.add('hidden');
-                
                 renderCategories();
             } catch (error) {
-                document.getElementById('loading-text').innerText = 'حدث خطأ في الاتصال بقاعدة البيانات.';
+                document.getElementById('loading-text').innerHTML = 'حدث خطأ في الاتصال بقاعدة البيانات.';
                 console.error(error);
             }
         }
 
-        // دالة عرض الأقسام الرئيسية
         function renderCategories() {
             const catView = document.getElementById('categories-view');
-            catView.innerHTML = ''; // تفريغ المحتوى
+            catView.innerHTML = ''; 
 
-            globalData.categories.forEach((cat, index) => {
-                // اختيار أيقونة
-                const iconClass = icons[index % icons.length];
-                
-                // إنشاء الزر
-                const btn = document.createElement('button');
-                btn.className = 'main-btn';
-                // زر القسم يفتح الخدمات
-                btn.onclick = () => showServices(index);
-                btn.innerHTML = `
-                    <span>${cat.name}</span>
-                    <i class="fa-solid ${iconClass}"></i>
-                `;
-                catView.appendChild(btn);
-            });
+            if (!globalData.categories || globalData.categories.length === 0) {
+                catView.innerHTML = '<div class="empty-msg">لا توجد أقسام حتى الآن. قم بإضافتها من البوت.</div>';
+            } else {
+                globalData.categories.forEach((cat, index) => {
+                    const iconClass = icons[index % icons.length];
+                    const btn = document.createElement('button');
+                    btn.className = 'main-btn';
+                    btn.onclick = () => showServices(index);
+                    btn.innerHTML = `<span>${cat.name}</span><i class="fa-solid ${iconClass}"></i>`;
+                    catView.appendChild(btn);
+                });
+            }
 
-            // إظهار واجهة الأقسام وإخفاء الخدمات
             document.getElementById('categories-view').classList.remove('hidden');
             document.getElementById('services-view').classList.add('hidden');
         }
 
-        // دالة عرض الخدمات داخل قسم معين (لما الزبون يضغط على قسم)
         function showServices(categoryIndex) {
             const cat = globalData.categories[categoryIndex];
-            const contactUser = globalData.site_settings.contact_username;
+            const contactUser = globalData.site_settings.contact_username || "fxxso";
             
-            // تغيير عنوان القسم
             document.getElementById('category-title').innerText = cat.name;
-            
             const servicesList = document.getElementById('services-list');
-            servicesList.innerHTML = ''; // تفريغ المحتوى القديم
+            servicesList.innerHTML = ''; 
 
-            cat.services.forEach(srv => {
-                const btn = document.createElement('a');
-                btn.className = 'main-btn';
-                btn.target = '_blank';
-                
-                // تجهيز الرسالة لتطبيق تيليجرام
-                let msg = encodeURIComponent(`ممكن اعرف تفاصيل وسعر: ${srv} بعد اذنك؟`);
-                btn.href = `https://t.me/${contactUser}?text=${msg}`;
-                
-                btn.innerHTML = `
-                    <span>${srv}</span>
-                    <i class="fa-brands fa-telegram"></i>
-                `;
-                servicesList.appendChild(btn);
-            });
+            if (!cat.services || cat.services.length === 0) {
+                servicesList.innerHTML = '<div class="empty-msg">لا توجد خدمات في هذا القسم.</div>';
+            } else {
+                cat.services.forEach(srv => {
+                    const btn = document.createElement('a');
+                    btn.className = 'main-btn';
+                    btn.target = '_blank';
+                    let msg = encodeURIComponent(`ممكن اعرف تفاصيل وسعر: ${srv} بعد اذنك؟`);
+                    btn.href = `https://t.me/${contactUser}?text=${msg}`;
+                    btn.innerHTML = `<span>${srv}</span><i class="fa-brands fa-telegram"></i>`;
+                    servicesList.appendChild(btn);
+                });
+            }
 
-            // إخفاء الأقسام وإظهار الخدمات
             document.getElementById('categories-view').classList.add('hidden');
             document.getElementById('services-view').classList.remove('hidden');
         }
 
-        // دالة زر الرجوع
         function showCategories() {
             document.getElementById('categories-view').classList.remove('hidden');
             document.getElementById('services-view').classList.add('hidden');
         }
 
-        // تشغيل الموقع
         initStore();
     </script>
 </body>
