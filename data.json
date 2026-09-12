@@ -6,5 +6,10 @@
     "logo_url": "",
     "background_image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564"
   },
-  "categories": []
+  "categories": [
+    {
+      "name": "توثيق حسابات",
+      "services": []
+    }
+  ]
 }
