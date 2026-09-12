@@ -1,9 +1,10 @@
-Enter{
+{
   "site_settings": {
     "title": "Fadi Store",
+    "description": "أفضل الخدمات بأسعار تنافسية",
     "contact_username": "fxxso",
-    "background_image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564",
-    "description": "أفضل الخدمات بأسعار تنافسية"
+    "logo_url": "",
+    "background_image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564"
   },
   "categories": []
 }
